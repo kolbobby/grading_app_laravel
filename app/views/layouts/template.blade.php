@@ -15,18 +15,29 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
+		<!-- Favicon -->
 		<link rel="shortcut icon" href="">
 		<link rel="apple-touch-icon" href="">
 		<link rel="apple-touch-icon" sizes="72x72" href="">
 		<link rel="apple-touch-icon" sizes="114x114" href="">
 
+		<!-- Google Fonts -->
+		<link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+
+		<!-- Skeleton CSS -->
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/base.css') }}" />
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/skeleton.css') }}" />
+
+		<!-- Layout CSS -->
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/layout.css') }}" />
 	</head>
 	<body>
-		<div class="container">
-			{{ $content }}
+		{{ View::make('layouts.header') }}
+		<div id="content">
+			<div class="container">
+				{{ $content }}
+			</div>
 		</div>
 	</body>
 </html>

@@ -16,6 +16,53 @@
 
 /* #Site Styles
 ================================================== */
+	body {
+		font-weight:300;
+		font-family:'Oswald', sans-serif; }
+
+	a:link,
+	a:visited,
+	a:hover,
+	a:active {
+		color:#424242;
+		text-decoration:none; }
+
+	.light {
+		font-weight:300; }
+	.regular {
+		font-weight:400; }
+	.bold {
+		font-weight:700; }
+
+	header {
+		top:0;
+		z-index:10;
+		width:100%;
+		height:10vh;
+		position:fixed;
+		background:#424242; }
+	header a:link,
+	header a:visited,
+	header a:hover,
+	header a:active {
+		color:#fff; }
+	header .brand {
+		float:left;
+		font-size:19pt;
+		line-height:67px; }
+	header ul {
+		margin:0;
+		float:right; }
+	header ul li {
+		margin:0;
+		display:inline-block; }
+	header ul li a {
+		padding:25px 20px;
+		display:block; }
+
+	#content {
+		top:10vh;
+		position:relative; }
 
 /* #Page Styles
 ================================================== */
