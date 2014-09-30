@@ -20,9 +20,13 @@
 		<link rel="apple-touch-icon" sizes="72x72" href="">
 		<link rel="apple-touch-icon" sizes="114x114" href="">
 
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/base.css') }}" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/skeleton.css') }}" />
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/layout.css') }}" />
 	</head>
 	<body>
-		{{ $content }}
+		<div class="container">
+			{{ $content }}
+		</div>
 	</body>
 </html>
