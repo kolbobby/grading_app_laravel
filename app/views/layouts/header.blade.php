@@ -1,9 +1,9 @@
 <header>
-	<div class="container">
-		<a class="brand bold" href="/">Grading App</a>
+	<div class="c12">
+		<a class="brand regular" href="/">Grading App</a>
 
-		<ul class="navigation regular">
-			<li><a href="/">Home</a></li>
+		<ul class="navigation">
+			<li><a href="/login">Sign In</a></li>
 		</ul>
 	</div>
 </header>

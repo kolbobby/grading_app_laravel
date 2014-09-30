@@ -25,17 +25,19 @@
 		<link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 
-		<!-- Skeleton CSS -->
-		<link rel="stylesheet" href="{{ URL::asset('assets/css/base.css') }}" />
-		<link rel="stylesheet" href="{{ URL::asset('assets/css/skeleton.css') }}" />
+		<!-- Gridiculous CSS -->
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/gridiculous.css') }}" />
 
 		<!-- Layout CSS -->
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/layout.css') }}" />
 	</head>
 	<body>
-		{{ View::make('layouts.header') }}
-		<div id="content">
-			<div class="container">
+		<div class="grid wfull">
+			<div class="row">
+				{{ View::make('layouts.header') }}
+			</div>
+
+			<div id="content" class="row">
 				{{ $content }}
 			</div>
 		</div>
