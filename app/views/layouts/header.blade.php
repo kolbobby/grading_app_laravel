@@ -1,9 +1,14 @@
-<header>
-	<div class="c12">
-		<a class="brand regular" href="/">Grading App</a>
-
+<header class="row">
+	<div class="c2">
+		<a class="brand regular" href="{{ URL::route('home') }}">Grading App</a>
+	</div>
+	<div class="c10">
 		<ul class="navigation">
-			<li><a href="/login">Sign In</a></li>
+			@if(Auth::check())
+
+			@else
+				<li><a href="{{ URL::route('account-create') }}">Sign Up</a></li>
+			@endif
 		</ul>
 	</div>
 </header>

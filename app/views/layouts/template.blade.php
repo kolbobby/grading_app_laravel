@@ -33,11 +33,13 @@
 	</head>
 	<body>
 		<div class="grid wfull">
-			<div class="row">
-				{{ View::make('layouts.header') }}
-			</div>
+			{{ View::make('layouts.header') }}
 
 			<div id="content" class="row">
+				@if(Session::has('global'))
+					<p>{{ Session::get('global') }}</p>
+				@endif
+
 				{{ $content }}
 			</div>
 		</div>
