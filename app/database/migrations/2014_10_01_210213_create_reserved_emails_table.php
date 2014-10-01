@@ -29,7 +29,7 @@ class CreateReservedEmailsTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('reserved_emails');
 	}
 
 }
