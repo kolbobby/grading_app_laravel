@@ -50,6 +50,7 @@ class AccountController extends BaseController {
 		$validator = Validator::make(Input::all(),
 			array(
 				'email' => 'required|max:255|email|unique:users',
+				'name' => 'required',
 				'password' => 'required|min:5|max:60',
 				'confirm_password' => 'required|same:password'
 			)
@@ -61,6 +62,7 @@ class AccountController extends BaseController {
 				->withInput();
 		} else {
 			$email = Input::get('email');
+			$name = Input::get('name');
 			$password = Input::get('password');
 
 			// Activation code
@@ -69,6 +71,7 @@ class AccountController extends BaseController {
 			// Create user
 			$user = User::create(array(
 				'email' => $email,
+				'name' => $name,
 				'password' => Hash::make($password),
 				'code' => $code,
 				'active' => 0
@@ -76,8 +79,8 @@ class AccountController extends BaseController {
 
 			// Check if user is successfully created
 			if($user) {
-				Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'email' => $email), function($message) use ($user) {
-					$message->to($user->email, $user->email)->subject('Activate Account');
+				Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'name' => $name), function($message) use ($user) {
+					$message->to($user->email, $user->name)->subject('Activate Account');
 				});
 				
 				return Redirect::route('home')

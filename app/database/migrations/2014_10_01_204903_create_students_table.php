@@ -18,6 +18,9 @@ class CreateStudentsTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 
+			$table->integer('parent_id')->unsigned();
+			$table->foreign('parent_id')->references('id')->on('parents');
+
 			$table->integer('sc_id')->unsigned();
 			$table->foreign('sc_id')->references('id')->on('school_counselors');
 

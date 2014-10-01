@@ -10,6 +10,13 @@
 		</div>
 
 		<div class="field">
+			<input type="text" name="name" placeholder="Name">
+			@if($errors->has('name'))
+				{{ $errors->first('name') }}
+			@endif
+		</div>
+
+		<div class="field">
 			<input type="password" name="password" placeholder="Password">
 			@if($errors->has('password'))
 				{{ $errors->first('password') }}
