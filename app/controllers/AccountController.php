@@ -35,6 +35,10 @@ class AccountController extends BaseController {
 		return Redirect::route('account-sign-in')
 			->with('global', 'There was a problem signing you in.');
 	}
+	public function getSignOut() {
+		Auth::logout();
+		return Redirect::route('home');
+	}
 
 	public function getCreate() {
 		$this->layout->title = "Register";

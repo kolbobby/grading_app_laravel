@@ -5,7 +5,7 @@
 	<div class="c10">
 		<ul class="navigation">
 			@if(Auth::check())
-				<li>Test</li>
+				<li><a href="{{ URL::route('account-sign-out') }}">Sign Out</a></li>
 			@else
 				<li><a href="{{ URL::route('account-sign-in') }}">Sign In</a></li>
 				<li><a href="{{ URL::route('account-create') }}">Sign Up</a></li>
