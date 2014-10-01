@@ -18,6 +18,21 @@ Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
  */
 Route::group(array('before' => 'auth'), function() {
 	/**
+	 * CSRF protection group
+	 */
+	Route::group(array('before' => 'csrf'), function() {
+		/**
+		 * Change password (POST)
+		 */
+		Route::post('/account/change_password', array('as' => 'account-change-password-post', 'uses' => 'AccountController@postChangePassword'));
+	});
+
+	/**
+	 * Change password (GET)
+	 */
+	Route::get('/account/change_password', array('as' => 'account-change-password', 'uses' => 'AccountController@getChangePassword'));
+
+	/**
 	 * Sign out (GET)
 	 */
 	Route::get('/account/signout', array('as' => 'account-sign-out', 'uses' => 'AccountController@getSignOut'));

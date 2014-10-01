@@ -5,6 +5,7 @@
 	<div class="c10">
 		<ul class="navigation">
 			@if(Auth::check())
+				<li><a href="{{ URL::route('account-change-password') }}">Change Password</a></li>
 				<li><a href="{{ URL::route('account-sign-out') }}">Sign Out</a></li>
 			@else
 				<li><a href="{{ URL::route('account-sign-in') }}">Sign In</a></li>
