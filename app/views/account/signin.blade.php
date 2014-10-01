@@ -21,6 +21,10 @@
 			<label for="remember">Remember me</label>
 		</div>
 
+		<div class="field">
+			<a href="{{ URL::route('account-forgot-password') }}">Forgot Password</a>
+		</div>
+
 		<input type="submit" value="Sign In">
 	</form>
 </div>
