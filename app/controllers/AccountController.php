@@ -35,12 +35,33 @@ class AccountController extends BaseController {
 
 			// Check if user is successfully created
 			if($user) {
-				// Send email
-				
+				Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'email' => $email), function($message) use ($user) {
+					$message->to($user->email, $user->email)->subject('Activate Account');
+				});
 				
 				return Redirect::route('home')
 					->with('global', 'Your account has been created! We have sent you an email to activate your account!');
 			}
 		}
 	}
+
+	public function getActivate($code) {
+		$user = User::where('code', '=', $code)->where('active', '=', 0);
+
+		if($user->count()) {
+			$user = $user->first();
+
+			// Update user to active state and clear code
+			$user->active = 1;
+			$user->code = '';
+
+			if($user->save()) {
+				return Redirect::route('home')
+					->with('global', 'Activated! You can now sign in!');
+			}
+		}
+
+		return Redirect::route('home')
+			->with('global', 'We could not activate your account. Try again later.');
+	} 
 }
