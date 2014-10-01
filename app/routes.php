@@ -25,12 +25,25 @@ Route::group(array('before' => 'guest'), function() {
 		 * Create account (POST)
 		 */
 		Route::post('/account/create', array('as' => 'account-create-post', 'uses' => 'AccountController@postCreate'));
+
+		/**
+		 * Sign in (POST)
+		 */
+		Route::post('/account/signin', array('as' => 'account-sign-in-post', 'uses' => 'AccountController@postSignIn'));
 	});
+
+	/**
+	 * Sign in (GET)
+	 */
+	Route::get('/account/signin', array('as' => 'account-sign-in', 'uses' => 'AccountController@getSignIn'));
 
 	/**
 	 * Create account (GET)
 	 */
 	Route::get('/account/create', array('as' => 'account-create', 'uses' => 'AccountController@getCreate'));
 
+	/**
+	 * Activate account (GET)
+	 */
 	Route::get('/account/activate/{code}', array('as' => 'account-activate', 'uses' => 'AccountController@getActivate'));
 });
