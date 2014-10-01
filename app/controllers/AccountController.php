@@ -13,11 +13,14 @@ class AccountController extends BaseController {
 			)
 		);
 
+		// Checks if the above requirements are met
 		if($validator->fails()) {
+			// If not, send back original input with errors
 			return Redirect::route('account-sign-in')
 				->withErrors($validator)
 				->withInput();
 		} else {
+			// If it passes, attempt to sign in
 			$remember = (Input::has('remember')) ? true : false;
 
 			$auth = Auth::attempt(array(
@@ -26,18 +29,23 @@ class AccountController extends BaseController {
 				'active' => 1
 			), $remember);
 
+			// Checks if a user exists with above credentials
 			if($auth) {
+				// If passes, sign user in, and redirect to home page
 				return Redirect::intended('/');
 			} else {
+				// If not, redirect with error
 				return Redirect::route('account-sign-in')
 					->with('global', 'Email/Password wrong, or account not activatd.');
 			}
 		}
 
+		// Redirect with error
 		return Redirect::route('account-sign-in')
 			->with('global', 'There was a problem signing you in.');
 	}
 	public function getSignOut() {
+		// Signs user out
 		Auth::logout();
 		return Redirect::route('home');
 	}
@@ -56,43 +64,60 @@ class AccountController extends BaseController {
 			)
 		);
 
+		// Checks if the above requirements are met
 		if($validator->fails()) {
+			// If not, send back original input with errors
 			return Redirect::route('account-create')
 				->withErrors($validator)
 				->withInput();
 		} else {
+			// If it passes, attempt to create account
 			$email = Input::get('email');
 			$name = Input::get('name');
 			$password = Input::get('password');
 
-			// Activation code
-			$code = str_random(60);
+			if($this->reserved($email)) {
+				// Activation code
+				$code = str_random(60);
 
-			// Create user
-			$user = User::create(array(
-				'email' => $email,
-				'name' => $name,
-				'password' => Hash::make($password),
-				'code' => $code,
-				'active' => 0
-			));
+				// Create user
+				$user = User::create(array(
+					'email' => $email,
+					'name' => $name,
+					'password' => Hash::make($password),
+					'code' => $code,
+					'active' => 0
+				));
 
-			// Check if user is successfully created
-			if($user) {
-				Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'name' => $name), function($message) use ($user) {
-					$message->to($user->email, $user->name)->subject('Activate Account');
-				});
-				
-				return Redirect::route('home')
-					->with('global', 'Your account has been created! We have sent you an email to activate your account!');
+				// Check if user is successfully created
+				if($user) {
+					if($this->createReservedType($user->email)) {
+						// Send email with activation link
+						Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'name' => $name), function($message) use ($user) {
+							$message->to($user->email, $user->name)->subject('Activate Account');
+						});
+						
+						// Return to home page with message stating the account has been created
+						return Redirect::route('home')
+							->with('global', 'Your account has been created! We have sent you an email to activate your account!');
+					}
+
+					return Redirect::route('home')
+						->with('global', 'Specified account could not be created.');
+				}
 			}
+
+			return Redirect::route('home')
+				->with('global', 'There is no information about your email in our databases.');
 		}
 	}
 
 	public function getActivate($code) {
+		// Looks for user above activation code provided
 		$user = User::where('code', '=', $code)->where('active', '=', 0);
 
 		if($user->count()) {
+			// If user exists, attempt to activate account
 			$user = $user->first();
 
 			// Update user to active state and clear code
@@ -100,6 +125,7 @@ class AccountController extends BaseController {
 			$user->code = '';
 
 			if($user->save()) {
+				// If account is activated, redirect to home page with success message
 				return Redirect::route('home')
 					->with('global', 'Activated! You can now sign in!');
 			}
@@ -210,5 +236,53 @@ class AccountController extends BaseController {
 
 		return Redirect::route('home')
 			->with('global', 'Could not recover your account.');
+	}
+
+	public function reserved($email) {
+		$user = DB::table('reserved_emails')->where('email', $email);
+
+		if($user->count()) {
+			return true;
+		}
+
+		return false;
+	}
+	public function createReservedType($email) {
+		$reserved = DB::table('reserved_emails')->where('email', $email)->first();
+
+		if($reserved->type != 'admin') {
+			$user = DB::table('users')->where('email', $email)->first();
+			if($reserved->type == 'sc') {
+				$sc = SchoolCounselor::create(array(
+					'user_id' => $user->id
+				));
+
+				if($sc) {
+					return true;
+				}
+			}
+			if($reserved->type == 'teacher') {
+				$teacher = Teacher::create(array(
+					'user_id' => $user->id
+				));
+
+				if($teacher) {
+					return true;
+				}
+			}
+			if($reserved->type == 'parent') {
+				$parent = Parent::create(array(
+					'user_id' => $user->id
+				));
+
+				if($parent) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		return true;
 	}
 }
