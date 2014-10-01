@@ -251,31 +251,25 @@ class AccountController extends BaseController {
 		$reserved = DB::table('reserved_emails')->where('email', $email)->first();
 
 		if($reserved->type != 'admin') {
-			$user = DB::table('users')->where('email', $email)->first();
+			$user = User::where('email', '=', $email)->first();
 			if($reserved->type == 'sc') {
-				$sc = SchoolCounselor::create(array(
-					'user_id' => $user->id
-				));
+				$sc = new SchoolCounselor();
 
-				if($sc) {
+				if($user->school_counselors()->save($sc)) {
 					return true;
 				}
 			}
 			if($reserved->type == 'teacher') {
-				$teacher = Teacher::create(array(
-					'user_id' => $user->id
-				));
+				$teacher = new Teacher();
 
-				if($teacher) {
+				if($user->teachers()->save($teacher)) {
 					return true;
 				}
 			}
 			if($reserved->type == 'parent') {
-				$parent = Parent::create(array(
-					'user_id' => $user->id
-				));
+				$parent = new StudentParent();
 
-				if($parent) {
+				if($user->parents()->save($parent)) {
 					return true;
 				}
 			}
