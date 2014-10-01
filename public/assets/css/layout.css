@@ -54,10 +54,27 @@
 
 	#content {
 		top:10vh;
+		padding-top:15px;
 		position:relative; }
 
 /* #Page Styles
 ================================================== */
+	/* Sign In Page */
+	.wfull_form {
+		padding:15px;
+		background:#424242; }
+	.wfull_form a {
+		color:#fff;
+		display:block;
+		text-align:center; }
+	.wfull_form input[type="text"],
+	.wfull_form input[type="password"],
+	.wfull_form input[type="submit"] {
+		width:100%;
+		border:none;
+		margin:5px 0;
+		border-radius:0;
+		box-shadow:none; }
 
 /* #Media Queries
 ================================================== */

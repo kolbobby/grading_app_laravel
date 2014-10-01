@@ -1,5 +1,5 @@
-<div class="c12">
-	<form action="{{ URL::route('account-forgot-password-post') }}" method="post">
+<div class="c4 s4">
+	<form class="wfull_form" action="{{ URL::route('account-forgot-password-post') }}" method="post">
 		{{ Form::token() }}
 
 		<div class="field">
