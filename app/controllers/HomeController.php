@@ -2,7 +2,10 @@
 
 class HomeController extends BaseController {
 	public function index() {
-		$this->layout->title = "Home";
-		$this->layout->content = View::make('home');
+		if(Auth::check()) {
+			return Redirect::route('account-page');
+		} else {
+			return Redirect::route('account-sign-in');
+		}
 	}
 }

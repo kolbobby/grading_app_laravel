@@ -28,6 +28,11 @@ Route::group(array('before' => 'auth'), function() {
 	});
 
 	/**
+	 * Account page (GET)
+	 */
+	Route::get('/account', array('as' => 'account-page', 'uses' => 'ProfileController@getAccount'));
+
+	/**
 	 * Change password (GET)
 	 */
 	Route::get('/account/change_password', array('as' => 'account-change-password', 'uses' => 'AccountController@getChangePassword'));

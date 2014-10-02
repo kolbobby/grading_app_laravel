@@ -148,17 +148,22 @@ class AccountController extends BaseController {
 			)
 		);
 
+		// Checks if the above requirements are met
 		if($validator->fails()) {
+			// If not, send back original input with errors
 			return Redirect::route('account-change-password')
 				->withErrors($validator)
 				->withInput();
 		} else {
+			// If it passes, attempt to change password
 			$user = User::find(Auth::user()->id);
 
 			$old_password = Input::get('old_password');
 			$new_password = Input::get('new_password');
 
+			// Check if old password entered matches account password
 			if(Hash::check($old_password, $user->getAuthPassword())) {
+				// If it matches, hash new password, and save account
 				$user->password = Hash::make($new_password);
 				
 				if($user->save()) {
@@ -166,6 +171,7 @@ class AccountController extends BaseController {
 						->with('global', 'Your password has been changed!');
 				}
 			} else {
+				// If not, send back with error
 				return Redirect::route('account-change-password')
 					->with('global', 'Your old password is incorrect.');
 			}
@@ -186,14 +192,18 @@ class AccountController extends BaseController {
 			)
 		);
 
+		// Checks if above requirements are met
 		if($validator->fails()) {
+			// If not, send back original input with errors
 			return Redirect::route('account-forgot-password')
 				->withErrors($validator)
 				->withInput();
 		} else {
+			// If it passes, attempt to retrieve forgotten password
 			$user = User::where('email', '=', Input::get('email'));
 
 			if($user->count()) {
+				// If account is found, generate a new code and password
 				$user = $user->first();
 
 				// Generate a new code and password
@@ -204,6 +214,7 @@ class AccountController extends BaseController {
 				$user->password_temp = Hash::make($password);
 
 				if($user->save()) {
+					// Send email with new password and activation link
 					Mail::send('emails.auth.forgot', array('link' => URL::route('account-recover', $code), 'email' => $user->email, 'password' => $password), function($message) use ($user) {
 						$message->to($user->email, $user->email)->subject('New Password');
 					});
@@ -219,9 +230,11 @@ class AccountController extends BaseController {
 	}
 
 	public function getRecover($code) {
+		// Attempt to recover account
 		$user = User::where('code', '=', $code)->where('password_temp', '!=', '');
 
 		if($user->count()) {
+			// Set password to password_temp, clear password_temp and code after activation
 			$user = $user->first();
 
 			$user->password = $user->password_temp;
@@ -229,6 +242,7 @@ class AccountController extends BaseController {
 			$user->code = '';
 
 			if($user->save()) {
+				// Let user know to change password once logged in
 				return Redirect::route('home')
 					->with('global', 'Your account has been recovered, and you can use your new password to sign in. Please change your password once you sign in.');
 			}
@@ -239,6 +253,7 @@ class AccountController extends BaseController {
 	}
 
 	public function reserved($email) {
+		// Looks for reserved email (needed in order to create account)
 		$user = DB::table('reserved_emails')->where('email', $email);
 
 		if($user->count()) {
@@ -248,11 +263,14 @@ class AccountController extends BaseController {
 		return false;
 	}
 	public function createReservedType($email) {
+		// Creates an account based on what type it is (admin, school counselor, teacher, or parent)
 		$reserved = DB::table('reserved_emails')->where('email', $email)->first();
 
 		if($reserved->type != 'admin') {
+			// Makes sure account type is not admin (admins are standard users with no specific type)
 			$user = User::where('email', '=', $email)->first();
 			if($reserved->type == 'sc') {
+				// Creates new school counselor account (adds reference to user)
 				$sc = new SchoolCounselor();
 
 				if($user->school_counselors()->save($sc)) {
@@ -260,6 +278,7 @@ class AccountController extends BaseController {
 				}
 			}
 			if($reserved->type == 'teacher') {
+				// Creates new teacher account (adds reference to user)
 				$teacher = new Teacher();
 
 				if($user->teachers()->save($teacher)) {
@@ -267,6 +286,7 @@ class AccountController extends BaseController {
 				}
 			}
 			if($reserved->type == 'parent') {
+				// Creates new parent account (adds reference to user)
 				$parent = new StudentParent();
 
 				if($user->parents()->save($parent)) {
