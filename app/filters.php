@@ -88,3 +88,17 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/**
+ * Admin filter
+ */
+Route::filter('admin', function() {
+	$user = Auth::user();
+
+	if($user->school_counselor()->count()) $accType = 'sc';
+	else if($user->teacher()->count()) $accType = 'teacher';
+	else if($user->parent()->count()) $accType = 'parent';
+	else $accType = 'admin';
+
+	if($accType != 'admin') return Redirect::route('account-page');
+});

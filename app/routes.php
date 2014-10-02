@@ -33,6 +33,16 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/account', array('as' => 'account-page', 'uses' => 'ProfileController@getAccount'));
 
 	/**
+	 * Admin group
+	 */
+	Route::group(array('before' => 'admin'), function() {
+		/**
+		 * Reserve emails (GET)
+		 */
+		Route::get('/account/admin/reserve_emails', array('as' => 'admin-reserve-emails', 'uses' => 'AdminController@getReserveEmails'));
+	});
+
+	/**
 	 * Change password (GET)
 	 */
 	Route::get('/account/change_password', array('as' => 'account-change-password', 'uses' => 'AccountController@getChangePassword'));

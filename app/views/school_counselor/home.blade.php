@@ -1,3 +1,1 @@
-<div class="c12">
-	School Counselor Home.
-</div>
+School Counselor Home.

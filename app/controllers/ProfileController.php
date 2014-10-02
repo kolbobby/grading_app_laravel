@@ -4,6 +4,7 @@ class ProfileController extends BaseController {
 	public function getAccount() {
 		$this->layout->title = Auth::user()->email;
 		$this->layout->content = View::make('account.view')
+			->with('accType', $this->checkAccountType())
 			->with('page', $this->loadDynPage());
 	}
 
