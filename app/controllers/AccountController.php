@@ -273,7 +273,7 @@ class AccountController extends BaseController {
 				// Creates new school counselor account (adds reference to user)
 				$sc = new SchoolCounselor();
 
-				if($user->school_counselors()->save($sc)) {
+				if($user->school_counselor()->save($sc)) {
 					return true;
 				}
 			}
@@ -281,7 +281,7 @@ class AccountController extends BaseController {
 				// Creates new teacher account (adds reference to user)
 				$teacher = new Teacher();
 
-				if($user->teachers()->save($teacher)) {
+				if($user->teacher()->save($teacher)) {
 					return true;
 				}
 			}
@@ -289,7 +289,7 @@ class AccountController extends BaseController {
 				// Creates new parent account (adds reference to user)
 				$parent = new StudentParent();
 
-				if($user->parents()->save($parent)) {
+				if($user->parent()->save($parent)) {
 					return true;
 				}
 			}

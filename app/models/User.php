@@ -35,13 +35,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->password;
 	}
 
-	public function school_counselors() {
-		return $this->hasMany('SchoolCounselor');
+	public function school_counselor() {
+		return $this->hasOne('SchoolCounselor');
 	}
-	public function teachers() {
-		return $this->hasMany('Teacher');
+	public function teacher() {
+		return $this->hasOne('Teacher');
 	}
-	public function parents() {
-		return $this->hasMany('StudentParent');
+	public function parent() {
+		return $this->hasOne('StudentParent');
 	}
 }
