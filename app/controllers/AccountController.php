@@ -254,7 +254,7 @@ class AccountController extends BaseController {
 
 	public function reserved($email) {
 		// Looks for reserved email (needed in order to create account)
-		$user = DB::table('reserved_emails')->where('email', $email);
+		$user = Reserved::where('email', '=', $email);
 
 		if($user->count()) {
 			return true;
@@ -264,7 +264,7 @@ class AccountController extends BaseController {
 	}
 	public function createReservedType($email) {
 		// Creates an account based on what type it is (admin, school counselor, teacher, or parent)
-		$reserved = DB::table('reserved_emails')->where('email', $email)->first();
+		$reserved = Reserved::where('email', '=', $email)->first();
 
 		if($reserved->type != 'admin') {
 			// Makes sure account type is not admin (admins are standard users with no specific type)

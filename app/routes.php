@@ -37,9 +37,19 @@ Route::group(array('before' => 'auth'), function() {
 	 */
 	Route::group(array('before' => 'admin'), function() {
 		/**
-		 * Reserve emails (GET)
+		 * CSRF protection group
 		 */
-		Route::get('/account/admin/reserve_emails', array('as' => 'admin-reserve-emails', 'uses' => 'AdminController@getReserveEmails'));
+		Route::group(array('before' => 'csrf'), function() {
+			/**
+			 * Reserve email (POST)
+			 */
+			Route::post('/account/admin/reserve_email', array('as' => 'admin-reserve-email-post', 'uses' => 'AdminController@postReserveEmail'));
+		});
+
+		/**
+		 * Reserve email (GET)
+		 */
+		Route::get('/account/admin/reserve_email', array('as' => 'admin-reserve-email', 'uses' => 'AdminController@getReserveEmail'));
 	});
 
 	/**

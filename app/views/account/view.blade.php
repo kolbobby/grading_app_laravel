@@ -6,7 +6,7 @@
 		<li><a href="{{ URL::route('account-page') }}">Home</a></li>
 		@if($accType == 'admin')
 			<!-- Admin Sidebar Options -->
-			<li><a href="{{ URL::route('admin-reserve-emails') }}">Reserve Emails</a></li>
+			<li><a href="{{ URL::route('admin-reserve-email') }}">Reserve Email</a></li>
 		@endif
 	</ul>
 </div>

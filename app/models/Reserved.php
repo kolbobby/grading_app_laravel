@@ -9,6 +9,8 @@ class Reserved extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
+	protected $fillable = array('email', 'type');
+
 	/**
 	 * The database table used by the model.
 	 *
