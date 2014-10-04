@@ -19,4 +19,8 @@ class StudentParent extends Eloquent implements UserInterface, RemindableInterfa
 	public function user() {
 		return $this->belongsTo('User');
 	}
+
+	public function students() {
+		return $this->hasMany('Student');
+	}
 }

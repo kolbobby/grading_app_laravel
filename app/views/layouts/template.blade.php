@@ -25,6 +25,9 @@
 		<link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 
+		<!-- jQuery UI CSS -->
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+
 		<!-- Gridiculous CSS -->
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/gridiculous.css') }}" />
 
@@ -43,5 +46,31 @@
 				{{ $content }}
 			</div>
 		</div>
+
+		<!-- jQuery -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- jQuery UI -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+		@if(Auth::check())
+			<!-- Admin Javascript -->
+			<script type="text/javascript">
+				(function($) {
+					$('#parent_name').autocomplete({
+						source: 'get_parents_json',
+						minLength: 4,
+						select: function(e, ui) {
+							$('#parent_id').val(ui.item.id);
+						}
+					});
+					$('#sc_name').autocomplete({
+						source: 'get_school_counselors_json',
+						minLength: 4,
+						select: function(e, ui) {
+							$('#sc_id').val(ui.item.id);
+						}
+					});
+				}) (jQuery);
+			</script>
+		@endif
 	</body>
 </html>

@@ -44,12 +44,31 @@ Route::group(array('before' => 'auth'), function() {
 			 * Reserve email (POST)
 			 */
 			Route::post('/account/admin/reserve_email', array('as' => 'admin-reserve-email-post', 'uses' => 'AdminController@postReserveEmail'));
+		
+			/**
+			 * Add student (POST)
+			 */
+			Route::post('/account/admin/add_student', array('as' => 'admin-add-student-post', 'uses' => 'AdminController@postAddStudent'));
 		});
 
 		/**
 		 * Reserve email (GET)
 		 */
 		Route::get('/account/admin/reserve_email', array('as' => 'admin-reserve-email', 'uses' => 'AdminController@getReserveEmail'));
+	
+		/**
+		 * Add student (GET)
+		 */
+		Route::get('/account/admin/add_student', array('as' => 'admin-add-student', 'uses' => 'AdminController@getAddStudent'));
+	
+		/**
+		 * Get parents (JSON GET)
+		 */
+		Route::get('/account/admin/get_parents_json', array('uses' => 'AdminController@getParentsJson'));
+		/**
+		 * Get school counselors (JSON GET)
+		 */
+		Route::get('/account/admin/get_school_counselors_json', array('uses' => 'AdminController@getSchoolCounselorsJson'));
 	});
 
 	/**

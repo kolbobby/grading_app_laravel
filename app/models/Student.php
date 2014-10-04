@@ -16,14 +16,9 @@ class Student extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'students';
 
-	// Gets user ownership
-	public function user() {
-		return $this->belongsTo('User');
-	}
-
 	// Gets parent ownership
 	public function parent() {
-		return $this->belongsTo('Parent', 'parent_id');
+		return $this->belongsTo('StudentParent', 'parent_id');
 	}
 
 	// Gets school counselor ownership

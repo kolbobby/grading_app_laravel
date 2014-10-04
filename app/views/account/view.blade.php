@@ -7,6 +7,7 @@
 		@if($accType == 'admin')
 			<!-- Admin Sidebar Options -->
 			<li><a href="{{ URL::route('admin-reserve-email') }}">Reserve Email</a></li>
+			<li><a href="{{ URL::route('admin-add-student') }}">Add Student</a></li>
 		@endif
 	</ul>
 </div>
