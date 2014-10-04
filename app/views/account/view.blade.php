@@ -12,5 +12,11 @@
 	</ul>
 </div>
 <div class="c10">
-	{{ $page }}
+	@if($page)
+		{{ $page }}
+	@else
+		@foreach($data['students'] as $student)
+			<div>{{ $student->name }}</div>
+		@endforeach
+	@endif
 </div>

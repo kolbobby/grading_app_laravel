@@ -5,21 +5,25 @@ class ProfileController extends BaseController {
 		$this->layout->title = Auth::user()->email;
 		$this->layout->content = View::make('account.view')
 			->with('accType', $this->checkAccountType())
-			->with('page', $this->loadDynPage());
+			->with('page', null)
+			->with('data', $this->loadData());
 	}
 
-	public function loadDynPage() {
+	public function loadData() {
+		$data = [];
 		$accType = $this->checkAccountType();
 
 		if($accType == 'sc') {
-			return View::make('school_counselor.home');
-		} else if($accType == 'teacher') {
-			return View::make('teacher.home');
+			$counselor = SchoolCounselor::where('user_id', '=', Auth::user()->id)->first();
+			$data['students'] = $counselor->students;
 		} else if($accType == 'parent') {
-			return View::make('parent.home');
+			$parent = StudentParent::where('user_id', '=', Auth::user()->id)->first();
+			$data['students'] = $parent->students;
 		} else {
-			return View::make('admin.home');
+			$data['students'] = Student::all();
 		}
+
+		return $data;
 	}
 
 	public function checkAccountType() {

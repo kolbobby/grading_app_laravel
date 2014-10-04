@@ -21,6 +21,6 @@ class SchoolCounselor extends Eloquent implements UserInterface, RemindableInter
 	}
 
 	public function students() {
-		return $this->hasMany('Student');
+		return $this->hasMany('Student', 'sc_id');
 	}
 }
