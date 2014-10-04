@@ -1,5 +1,7 @@
 <div class="c4 s4">
 	<form class="wfull_form" action="{{ URL::route('admin-add-student-post') }}" method="post">
+		{{ Form::token() }}
+
 		<div class="field">
 			<input type="text" name="student_name" id="student_name" placeholder="Student Name">
 			@if($errors->has('student_name'))

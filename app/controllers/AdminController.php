@@ -83,9 +83,9 @@ class AdminController extends BaseController {
 			if($this->checkValidParent($parent_name) && $this->checkValidSc($sc_name)) {
 				// If it passes, attempt to create student
 				$student = Student::create(array(
+					'name' => $student_name,
 					'parent_id' => $parent_id,
-					'sc_id' => $sc_id,
-					'name' => $student_name
+					'sc_id' => $sc_id
 				));
 
 				if($student) {
