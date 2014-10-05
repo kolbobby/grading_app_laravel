@@ -13,10 +13,10 @@
 	</ul>
 </div>
 <div class="c10">
-	{{ $data['current_period'] }}
 	@if($page)
 		{{ $page }}
 	@else
+		{{ $data['current_period'] }}
 		@foreach($data['students'] as $student)
 			<div>{{ $student->name }}</div>
 		@endforeach

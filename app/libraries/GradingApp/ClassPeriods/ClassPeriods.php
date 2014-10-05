@@ -3,7 +3,6 @@
 namespace GradingApp\ClassPeriods;
 
 use DB;
-use Config;
 use Carbon\Carbon;
 
 class ClassPeriods {
@@ -40,6 +39,11 @@ class ClassPeriods {
 		self::SetCurrentTime(Carbon::now(Config::get('app.timezone')));
 		self::SetDayStart(Carbon::createFromTime(8, 0, 0, Config::get('app.timezone'))); // (hours, minutes, second, timezone) DEFAULT: 08:00:00
 	
+		self::CurrentPeriod();
+	}
+
+	// Calculates current period
+	public static function CurrentPeriod() {
 		$dif = self::GetCurrentTime()->diffInMinutes(self::GetDayStart());
 		if($dif >= 0) {
 			if(!self::GetHalfDay()) {
