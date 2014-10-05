@@ -11,10 +11,14 @@
 			"app/commands",
 			"app/controllers",
 			"app/models",
+			"app/libraries", // Custom directory
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
-		]
+		],
+		"psr-0": {
+			"GradingApp": "app/libraries"
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [

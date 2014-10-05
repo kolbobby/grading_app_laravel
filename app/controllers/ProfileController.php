@@ -1,5 +1,7 @@
 <?php
 
+use GradingApp\ClassPeriods\ClassPeriods;
+
 class ProfileController extends BaseController {
 	public function getAccount() {
 		$this->layout->title = Auth::user()->email;
@@ -12,6 +14,7 @@ class ProfileController extends BaseController {
 	public function loadData() {
 		$data = [];
 		$accType = $this->checkAccountType();
+		$class_periods = new ClassPeriods();
 
 		if($accType == 'sc') {
 			$counselor = SchoolCounselor::where('user_id', '=', Auth::user()->id)->first();
@@ -21,6 +24,7 @@ class ProfileController extends BaseController {
 			$data['students'] = $parent->students;
 		} else {
 			$data['students'] = Student::all();
+			$data['current_period'] = $class_periods::GetCurrentPeriod();
 		}
 
 		return $data;
