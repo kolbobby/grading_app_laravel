@@ -1,6 +1,7 @@
 <?php
 
-use GradingApp\ClassPeriods\ClassPeriods;
+use GradingApp\Libraries\ClassPeriods\ClassPeriods;
+use GradingApp\Libraries\Calendar\Calendar;
 
 class ProfileController extends BaseController {
 	public function getAccount() {
@@ -15,6 +16,7 @@ class ProfileController extends BaseController {
 		$data = [];
 		$accType = $this->checkAccountType();
 		$class_periods = new ClassPeriods();
+		$calendar = new Calendar();
 
 		if($accType == 'sc') {
 			$counselor = SchoolCounselor::where('user_id', '=', Auth::user()->id)->first();
@@ -25,6 +27,7 @@ class ProfileController extends BaseController {
 		} else {
 			$data['students'] = Student::all();
 			$data['current_period'] = $class_periods::GetCurrentPeriod();
+			$data['current_events'] = $calendar::GetDatesEvents();
 		}
 
 		return $data;

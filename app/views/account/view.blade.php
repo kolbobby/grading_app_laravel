@@ -17,6 +17,9 @@
 		{{ $page }}
 	@else
 		{{ $data['current_period'] }}
+		@foreach($data['current_events'] as $event)
+			{{ $event }}
+		@endforeach
 		@foreach($data['students'] as $student)
 			<div>{{ $student->name }}</div>
 		@endforeach

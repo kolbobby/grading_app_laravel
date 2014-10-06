@@ -1,9 +1,11 @@
 <?php
 
-namespace GradingApp\ClassPeriods;
+namespace GradingApp\Libraries\ClassPeriods;
 
 use DB;
+use Config;
 use Carbon\Carbon;
+use GradingApp\Libraries\Calendar\Calendar;
 
 class ClassPeriods {
 	// Class durations
@@ -21,7 +23,7 @@ class ClassPeriods {
 
 	private static $number_of_periods;
 
-	private static $half_day; // half-day boolean; whether or not current day is half-day
+	private static $half_day = 0; // half-day boolean; whether or not current day is half-day
 
 	public function __construct() {
 		// Set database variables
@@ -33,7 +35,13 @@ class ClassPeriods {
 
 		self::$number_of_periods = (int) DB::table('application_settings')->where('name', '=', 'number_of_periods')->first()->value;
 
-		self::$half_day = (int) DB::table('application_settings')->where('name', '=', 'half_day')->first()->value;
+		// Check for half day in calendar; set half day based on events
+		$calendar = new Calendar();
+		$dates_events = $calendar::GetDatesEvents();
+		foreach($dates_events as $event) {
+			if(self::$half_day) break;
+			self::$half_day = $event->half_day;
+		}
 
 		// Set application variables
 		self::SetCurrentTime(Carbon::now(Config::get('app.timezone')));
