@@ -57,9 +57,6 @@
 		padding-top:15px;
 		position:relative; }
 
-/* #Page Styles
-================================================== */
-	/* Sign In Page */
 	.wfull_form {
 		padding:15px;
 		background:#424242; }
@@ -75,6 +72,16 @@
 		margin:5px 0;
 		border-radius:0;
 		box-shadow:none; }
+
+/* #Page Styles
+================================================== */
+	/* Adjust Timings Page */
+	.wfull_form.timings .field.side {
+		width:20%;
+		float:left;
+		text-align:center; }
+	.wfull_form.timings input {
+		text-align:center; }
 
 /* #Media Queries
 ================================================== */

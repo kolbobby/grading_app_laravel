@@ -45,7 +45,8 @@ class ClassPeriods {
 
 		// Set application variables
 		self::SetCurrentTime(Carbon::now(Config::get('app.timezone')));
-		self::SetDayStart(Carbon::createFromTime(8, 0, 0, Config::get('app.timezone'))); // (hours, minutes, second, timezone) DEFAULT: 08:00:00
+		sscanf(DB::table('application_settings')->where('name', '=', 'day_start_time')->first()->value, '%d:%d:%d', $day_start_hours, $day_start_minutes, $day_start_seconds);
+		self::SetDayStart(Carbon::createFromTime($day_start_hours, $day_start_minutes, $day_start_seconds, Config::get('app.timezone'))); // (hours, minutes, second, timezone) DEFAULT: 08:00:00
 	
 		self::CurrentPeriod();
 	}

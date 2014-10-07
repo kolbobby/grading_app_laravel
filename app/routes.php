@@ -49,6 +49,11 @@ Route::group(array('before' => 'auth'), function() {
 			 * Add student (POST)
 			 */
 			Route::post('/account/admin/add_student', array('as' => 'admin-add-student-post', 'uses' => 'AdminController@postAddStudent'));
+		
+			/**
+			 * Adjust timings (POST)
+			 */
+			Route::post('/account/admin/adjust_timings', array('as' => 'admin-adjust-timings-post', 'uses' => 'AdminController@postAdjustTimings'));
 		});
 
 		/**
@@ -61,6 +66,11 @@ Route::group(array('before' => 'auth'), function() {
 		 */
 		Route::get('/account/admin/add_student', array('as' => 'admin-add-student', 'uses' => 'AdminController@getAddStudent'));
 	
+		/**
+		 * Adjust timings (GET)
+		 */
+		Route::get('/account/admin/adjust_timings', array('as' => 'admin-adjust-timings', 'uses' => 'AdminController@getAdjustTimings'));
+
 		/**
 		 * Get parents (JSON GET)
 		 */

@@ -8,7 +8,8 @@
 			<!-- Admin Sidebar Options -->
 			<li><a href="{{ URL::route('admin-reserve-email') }}">Reserve Email</a></li>
 			<li><a href="{{ URL::route('admin-add-student') }}">Add Student</a></li>
-			<li><a href="#">Adjust Class Periods</a></li>
+			<li><a href="{{ URL::route('admin-adjust-timings') }}">Adjust Timing</a></li>
+			<li><a href="#">Add/Adjust Events</a></li>
 		@endif
 	</ul>
 </div>
@@ -16,10 +17,12 @@
 	@if($page)
 		{{ $page }}
 	@else
-		{{ $data['current_period'] }}
-		@foreach($data['current_events'] as $event)
-			{{ $event }}
-		@endforeach
+		@if($accType == 'admin')
+			<div>{{ $data['current_period'] }}</div>
+			@foreach($data['current_events'] as $event)
+				<div>{{ $event }}</div>
+			@endforeach
+		@endif
 		@foreach($data['students'] as $student)
 			<div>{{ $student->name }}</div>
 		@endforeach
