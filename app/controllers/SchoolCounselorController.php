@@ -139,8 +139,10 @@ class SchoolCounselorController extends BaseController {
 	public function checkValidClass($search) {
 		$class = SchoolClass::where('search_id', '=', $search)->first();
 
-		if($class->count()) {
-			return true;
+		if($class) {
+			if($class->count()) {
+				return true;
+			}
 		}
 
 		return false;
@@ -148,8 +150,10 @@ class SchoolCounselorController extends BaseController {
 	public function checkValidTeacher($name) {
 		$user = User::where('name', '=', $name)->first();
 
-		if($user->teacher()->count()) {
-			return true;
+		if($user) {
+			if($user->teacher()->count()) {
+				return true;
+			}
 		}
 
 		return false;
@@ -157,8 +161,10 @@ class SchoolCounselorController extends BaseController {
 	public function checkValidRegister($search_id, $teacher_id, $period) {
 		$class = RegisteredClass::where('class_id', '=', $search_id)->where('teacher_id', '=', $teacher_id)->where('period', '=', $period);
 
-		if($class->count()) {
-			return false;
+		if($class) {
+			if($class->count()) {
+				return false;
+			}
 		}
 
 		return true;

@@ -5,8 +5,8 @@
 		<div class="field">
 			<input type="hidden" name="search_id" id="search_id">
 			<input type="text" name="search" id="search" placeholder="School Class Search ID">
-			@if($errors->has('search_id'))
-				{{ $errors->first('search_id') }}
+			@if($errors->has('search'))
+				{{ $errors->first('search') }}
 			@endif
 		</div>
 

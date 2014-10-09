@@ -221,8 +221,10 @@ class AdminController extends BaseController {
 		// Looks for reserved email (needed in order to create account)
 		$user = Reserved::where('email', '=', $email);
 
-		if($user->count()) {
-			return true;
+		if($user) {
+			if($user->count()) {
+				return true;
+			}
 		}
 
 		return false;
@@ -253,8 +255,10 @@ class AdminController extends BaseController {
 	public function checkValidParent($name) {
 		$user = User::where('name', '=', $name)->first();
 
-		if($user->parent()->count()) {
-			return true;
+		if($user) {
+			if($user->parent()->count()) {
+				return true;
+			}
 		}
 
 		return false;
@@ -262,8 +266,10 @@ class AdminController extends BaseController {
 	public function checkValidSc($name) {
 		$user = User::where('name', '=', $name)->first();
 
-		if($user->school_counselor()->count()) {
-			return true;
+		if($user) {
+			if($user->school_counselor()->count()) {
+				return true;
+			}
 		}
 
 		return false;
