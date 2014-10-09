@@ -66,7 +66,8 @@
 		text-align:center; }
 	.wfull_form input[type="text"],
 	.wfull_form input[type="password"],
-	.wfull_form input[type="submit"] {
+	.wfull_form input[type="submit"],
+	.wfull_form textarea {
 		width:100%;
 		border:none;
 		margin:5px 0;

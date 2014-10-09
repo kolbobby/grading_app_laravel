@@ -12,7 +12,8 @@
 			<!--<li><a href="#">Add/Adjust Events</a></li>-->
 		@elseif($accType == 'sc')
 			<!-- School Counselor Options -->
-			<li><a href="#">Add/Remove Classes</a></li>
+			<li><a href="{{ URL::route('sc-add-school-class') }}">Add School Class</a></li>
+			<li><a href="{{ URL::route('sc-register-class') }}">Register Class</a></li>
 		@endif
 	</ul>
 </div>

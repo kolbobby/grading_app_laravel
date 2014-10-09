@@ -51,26 +51,45 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- jQuery UI -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-		@if(Auth::check())
-			<!-- Admin Javascript -->
-			<script type="text/javascript">
-				(function($) {
-					$('#parent_name').autocomplete({
-						source: 'get_parents_json',
-						minLength: 4,
-						select: function(e, ui) {
-							$('#parent_id').val(ui.item.id);
-						}
-					});
-					$('#sc_name').autocomplete({
-						source: 'get_school_counselors_json',
-						minLength: 4,
-						select: function(e, ui) {
-							$('#sc_id').val(ui.item.id);
-						}
-					});
-				}) (jQuery);
-			</script>
-		@endif
+
+		<!-- Admin Javascript -->
+		<script type="text/javascript">
+			(function($) {
+				$('#parent_name').autocomplete({
+					source: 'get_parents_json',
+					minLength: 4,
+					select: function(e, ui) {
+						$('#parent_id').val(ui.item.id);
+					}
+				});
+				$('#sc_name').autocomplete({
+					source: 'get_school_counselors_json',
+					minLength: 4,
+					select: function(e, ui) {
+						$('#sc_id').val(ui.item.id);
+					}
+				});
+			}) (jQuery);
+		</script>
+
+		<!-- School Counselor Javascript -->
+		<script type="text/javascript">
+			(function($) {
+				$('#search').autocomplete({
+					source: 'get_school_classes_json',
+					minLength: 1,
+					select: function(e, ui) {
+						$('#search_id').val(ui.item.id);
+					}
+				});
+				$('#teacher_name').autocomplete({
+					source: 'get_teachers_json',
+					minLength: 4,
+					select: function(e, ui) {
+						$('#teacher_id').val(ui.item.id);
+					}
+				});
+			}) (jQuery);
+		</script>
 	</body>
 </html>

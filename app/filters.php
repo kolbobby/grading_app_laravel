@@ -95,10 +95,24 @@ Route::filter('csrf', function()
 Route::filter('admin', function() {
 	$user = Auth::user();
 
-	if($user->school_counselor()->count()) $accType = 'sc';
-	else if($user->teacher()->count()) $accType = 'teacher';
-	else if($user->parent()->count()) $accType = 'parent';
-	else $accType = 'admin';
-
-	if($accType != 'admin') return Redirect::route('account-page');
+	if(accCheck($user) != 'admin') return Redirect::route('account-page');
 });
+
+/**
+ * School counselor filter
+ */
+Route::filter('school_counselor', function() {
+	$user = Auth::user();
+
+	if(accCheck($user) != 'sc') return Redirect::route('account-page');
+});
+
+/**
+ * Return account type
+ */
+function accCheck($user) {
+	if($user->school_counselor()->count()) return 'sc';
+	else if($user->teacher()->count()) return 'teacher';
+	else if($user->parent()->count()) return 'parent';
+	else return 'admin';
+}

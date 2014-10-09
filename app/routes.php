@@ -82,6 +82,45 @@ Route::group(array('before' => 'auth'), function() {
 	});
 
 	/**
+	 * School counselor group
+	 */
+	Route::group(array('before' => 'school_counselor'), function () {
+		/**
+		 * CSRF protection group
+		 */
+		Route::group(array('before' => 'csrf'), function() {
+			/**
+			 * Add school classes (POST)
+			 */
+			Route::post('/account/sc/add_school_class', array('as' => 'sc-add-school-class-post', 'uses' => 'SchoolCounselorController@postAddSchoolClass'));
+		
+			/**
+			 * Register class (POST)
+			 */
+			Route::post('/account/sc/register_class', array('as' => 'sc-register-class-post', 'uses' => 'SchoolCounselorController@postRegisterClass'));
+		});
+
+		/**
+		 * Add school classes (GET)
+		 */
+		Route::get('/account/sc/add_school_class', array('as' => 'sc-add-school-class', 'uses' => 'SchoolCounselorController@getAddSchoolClass'));
+	
+		/**
+		 * Register class (GET)
+		 */
+		Route::get('/account/sc/register_class', array('as' => 'sc-register-class', 'uses' => 'SchoolCounselorController@getRegisterClass'));
+	
+		/**
+		 * Get school class (JSON GET)
+		 */
+		Route::get('/account/sc/get_school_classes_json', array('uses' => 'SchoolCounselorController@getSchoolClassesJson'));
+		/**
+		 * Get teachers (JSON GET)
+		 */
+		Route::get('/account/sc/get_teachers_json', array('uses' => 'SchoolCounselorController@getTeachersJson'));
+	});
+
+	/**
 	 * Change password (GET)
 	 */
 	Route::get('/account/change_password', array('as' => 'account-change-password', 'uses' => 'AccountController@getChangePassword'));
