@@ -28,11 +28,6 @@ Route::group(array('before' => 'auth'), function() {
 	});
 
 	/**
-	 * Account page (GET)
-	 */
-	Route::get('/account', array('as' => 'account-page', 'uses' => 'ProfileController@getAccount'));
-
-	/**
 	 * Admin group
 	 */
 	Route::group(array('before' => 'admin'), function() {
@@ -119,6 +114,16 @@ Route::group(array('before' => 'auth'), function() {
 		 */
 		Route::get('/account/sc/get_teachers_json', array('uses' => 'SchoolCounselorController@getTeachersJson'));
 	});
+
+	/**
+	 * Student page (GET)
+	 */
+	Route::get('/account/student/{student_id}', array('as' => 'student-page', 'uses' => 'StudentController@getStudent'));
+
+	/**
+	 * Account page (GET)
+	 */
+	Route::get('/account', array('as' => 'account-page', 'uses' => 'ProfileController@getAccount'));
 
 	/**
 	 * Change password (GET)

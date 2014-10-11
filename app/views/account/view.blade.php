@@ -28,7 +28,7 @@
 			@endforeach
 		@endif
 		@foreach($data['students'] as $student)
-			<div>{{ $student->name }}</div>
+			<div><a href="{{ URL::route('student-page', array('student_id' => $student->id)) }}">{{ $student->name }}</a></div>
 		@endforeach
 	@endif
 </div>
