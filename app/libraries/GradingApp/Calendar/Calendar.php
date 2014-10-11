@@ -22,7 +22,7 @@ class Calendar {
 		$school_events = [];
 		foreach($events as $event) {
 			$date = Carbon::createFromTimeStamp(strtotime($event->date));
-			if(Carbon::now()->isToday($date)) $school_events[] = $event;
+			if($date->isToday(Carbon::now())) $school_events[] = $event;
 		}
 
 		self::$dates_events = $school_events;
