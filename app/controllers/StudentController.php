@@ -8,7 +8,8 @@ class StudentController extends BaseController {
 				->with('accType', $this->checkAccType(Auth::user()))
 				->with('page', View::make('student.view')
 					->with('accType', $this->checkAccType(Auth::user()))
-					->with('student_id', $student_id));
+					->with('student_id', $student_id)
+					->with('classes', $this->getStudentClasses($student_id)));
 		} else {
 			if($this->checkAccType(Auth::user()) != 'teacher' && $this->checkValidParent(Auth::user(), $student_id)) {
 				$this->layout->title = Student::find($student_id)->name;
@@ -38,20 +39,58 @@ class StudentController extends BaseController {
 			// If it passes, attempt to add class to student schedule
 			$class_id = Input::get('registered_class_id');
 
-			$student_class = StudentClass::create(array(
-				'registered_class_id' => $class_id,
-				'student_id' => $student_id
-			));
+			$class = StudentClass::where('student_id', '=', $student_id)->where('registered_class_id', '=', $class_id)->first();
 
-			if($student_class) {
-				// Check if class was added to student schedule
+			// Check if class is already on student's schedule
+			if($class->count()) {
+				// If so, send message
 				return Redirect::route('student-page', array('student_id' => $student_id))
-					->with('global', 'Class added to student schedule!');
+					->with('global', 'Class is already on student\'s schedule.');
+			} else {
+				// If not, create student class
+
+				$create_class = true;
+				$registered_class_period = RegisteredClass::where('id', '=', $class_id)->first()->period;
+				$student_classes = StudentClass::where('student_id', '=', $student_id)->get();
+
+				foreach($student_classes as $stu_class) {
+					if($stu_class->registered_class()->first()->period == $registered_class_period) $create_class = false;
+				}
+
+				// Check if period is already taken
+				if($create_class) {
+					// If not, create student class
+					$student_class = StudentClass::create(array(
+						'registered_class_id' => $class_id,
+						'student_id' => $student_id
+					));
+
+					if($student_class) {
+						// Check if class was added to student schedule
+						return Redirect::route('student-page', array('student_id' => $student_id))
+							->with('global', 'Class added to student schedule!');
+					}
+				} else {
+					// If so, send back message
+					return Redirect::route('student-page', array('student_id' => $student_id))
+						->with('global', 'Student already has class scheduled for this period.');
+				}
 			}
 		}
 
 		return Redirect::route('student-page', array('student_id' => $student_id))
 			->with('global', 'Problem adding class to student schedule.');
+	}
+
+	public function getStudentClasses($student_id) {
+		$student_classes = StudentClass::where('student_id', '=', $student_id)->get();
+		$classes = [];
+
+		foreach($student_classes as $class) {
+			$classes[] = $class->registered_class()->first()->school_class()->first()->name;
+		}
+
+		return $classes;
 	}
 
 	public function getRegisteredClassesJson() {

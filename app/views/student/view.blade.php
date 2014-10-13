@@ -24,7 +24,9 @@
 				<input type="submit" value="Add Class To Student Schedule">
 			</form>
 			<div class="classes">
-				Student Schedule
+				@foreach($classes as $class)
+					<div>{{ $class }}</div>
+				@endforeach
 			</div>
 		</div>
 	@endif
