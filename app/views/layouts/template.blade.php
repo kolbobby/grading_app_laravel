@@ -89,6 +89,18 @@
 						$('#teacher_id').val(ui.item.id);
 					}
 				});
+
+				/**
+				 * Student view tabs
+				 */
+				$('#student_view_tabs').tabs();
+				$('#student_view_tabs #registered_class').autocomplete({
+					source: 'get_registered_classes_json',
+					minLength: 1,
+					select: function(e, ui) {
+						$('#registered_class_id').val(ui.item.id);
+					}
+				});
 			}) (jQuery);
 		</script>
 	</body>

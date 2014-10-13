@@ -93,6 +93,11 @@ Route::group(array('before' => 'auth'), function() {
 			 * Register class (POST)
 			 */
 			Route::post('/account/sc/register_class', array('as' => 'sc-register-class-post', 'uses' => 'SchoolCounselorController@postRegisterClass'));
+		
+			/**
+			 * Add class to student schedule (POST)
+			 */
+			Route::post('/account/student/{student_id}/add_to_schedule', array('as' => 'student-add-class', 'uses' => 'StudentController@postAddClassToSchedule'));
 		});
 
 		/**
@@ -113,6 +118,11 @@ Route::group(array('before' => 'auth'), function() {
 		 * Get teachers (JSON GET)
 		 */
 		Route::get('/account/sc/get_teachers_json', array('uses' => 'SchoolCounselorController@getTeachersJson'));
+
+		/**
+		 * Get registered classes (JSON GET)
+		 */
+		Route::get('/account/student/get_registered_classes_json', array('uses' => 'StudentController@getRegisteredClassesJson'));
 	});
 
 	/**
