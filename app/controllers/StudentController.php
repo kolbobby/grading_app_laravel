@@ -42,7 +42,7 @@ class StudentController extends BaseController {
 			$class = StudentClass::where('student_id', '=', $student_id)->where('registered_class_id', '=', $class_id)->first();
 
 			// Check if class is already on student's schedule
-			if($class->count()) {
+			if($class) {
 				// If so, send message
 				return Redirect::route('student-page', array('student_id' => $student_id))
 					->with('global', 'Class is already on student\'s schedule.');

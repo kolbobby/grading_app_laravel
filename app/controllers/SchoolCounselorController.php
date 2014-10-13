@@ -140,9 +140,7 @@ class SchoolCounselorController extends BaseController {
 		$class = SchoolClass::where('search_id', '=', $search)->first();
 
 		if($class) {
-			if($class->count()) {
-				return true;
-			}
+			return true;
 		}
 
 		return false;
@@ -162,9 +160,7 @@ class SchoolCounselorController extends BaseController {
 		$class = RegisteredClass::where('class_id', '=', $search_id)->where('teacher_id', '=', $teacher_id)->where('period', '=', $period);
 
 		if($class) {
-			if($class->count()) {
-				return false;
-			}
+			return false;
 		}
 
 		return true;
