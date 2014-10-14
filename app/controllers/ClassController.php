@@ -7,10 +7,18 @@ class ClassController extends BaseController {
 			$this->layout->content = View::make('account.view')
 				->with('accType', $this->checkAccType(Auth::user()))
 				->with('page', View::make('class.view')
+					->with('class_id', $class_id)
 					->with('students', $this->getStudentsInClass($class_id)));
 		} else {
 			return Redirect::route('account-page');
 		}
+	}
+
+	public function getStudentClassGradePage($student_id, $class_id) {
+		$this->layout->title = Student::find($student_id)->name . '\'s grades for ' . SchoolClass::find(RegisteredClass::find($class_id)->class_id)->name;
+		$this->layout->content = View::make('account.view')
+			->with('accType', $this->checkAccType(Auth::user()))
+			->with('page', View::make('class.student_grades'));
 	}
 
 	public function getStudentsInClass($class_id) {

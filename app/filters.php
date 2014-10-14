@@ -108,6 +108,15 @@ Route::filter('school_counselor', function() {
 });
 
 /**
+ * Teacher filter
+ */
+Route::filter('teacher', function() {
+	$user = Auth::user();
+
+	if(accCheck($user) != 'teacher') return Redirect::route('account-page');
+});
+
+/**
  * Return account type
  */
 function accCheck($user) {
