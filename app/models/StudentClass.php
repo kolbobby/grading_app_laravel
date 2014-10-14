@@ -18,6 +18,10 @@ class StudentClass extends Eloquent implements UserInterface, RemindableInterfac
 	 */
 	protected $table = 'student_classes';
 
+	public function student() {
+		return $this->belongsTo('Student', 'student_id');
+	}
+
 	public function registered_class() {
 		return $this->belongsTo('RegisteredClass', 'registered_class_id');
 	}
