@@ -19,6 +19,6 @@ class SchoolClass extends Eloquent implements UserInterface, RemindableInterface
 	protected $table = 'school_classes';
 
 	public function registered_classes() {
-		return $this->hasMany('RegisteredClasses', 'class_id');
+		return $this->hasMany('RegisteredClass', 'class_id');
 	}
 }

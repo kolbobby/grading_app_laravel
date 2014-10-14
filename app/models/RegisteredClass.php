@@ -22,6 +22,10 @@ class RegisteredClass extends Eloquent implements UserInterface, RemindableInter
 		return $this->belongsTo('SchoolClass', 'class_id');
 	}
 
+	public function teacher() {
+		return $this->belongsTo('Teacher', 'teacher_id');
+	}
+
 	public function student_classes() {
 		return $this->hasMany('StudentClass', 'registered_class_id');
 	}

@@ -19,4 +19,8 @@ class Teacher extends Eloquent implements UserInterface, RemindableInterface {
 	public function user() {
 		return $this->belongsTo('User');
 	}
+
+	public function registered_classes() {
+		return $this->hasMany('RegisteredClass', 'teacher_id');
+	}
 }

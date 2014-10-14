@@ -27,8 +27,14 @@
 				<div>{{ $event }}</div>
 			@endforeach
 		@endif
-		@foreach($data['students'] as $student)
-			<div><a href="{{ URL::route('student-page', array('student_id' => $student->id)) }}">{{ $student->name }}</a></div>
-		@endforeach
+		@if($accType != 'teacher')
+			@foreach($data['students'] as $student)
+				<div><a href="{{ URL::route('student-page', array('student_id' => $student->id)) }}">{{ $student->name }}</a></div>
+			@endforeach
+		@else
+			@foreach($data['classes'] as $class)
+				<div>{{ $class->school_class()->first()->name }}</div>
+			@endforeach
+		@endif
 	@endif
 </div>
