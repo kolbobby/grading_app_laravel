@@ -33,7 +33,7 @@
 			@endforeach
 		@else
 			@foreach($data['classes'] as $class)
-				<div>{{ $class->school_class()->first()->name }}</div>
+				<div><a href="{{ URL::route('class-page', array('class_id' => $class->id)) }}">{{ $class->school_class()->first()->name }}</a></div>
 			@endforeach
 		@endif
 	@endif

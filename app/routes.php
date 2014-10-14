@@ -126,6 +126,11 @@ Route::group(array('before' => 'auth'), function() {
 	});
 
 	/**
+	 * Class page (GET)
+	 */
+	Route::get('/account/class/{class_id}', array('as' => 'class-page', 'uses' => 'ClassController@getClass'));
+
+	/**
 	 * Student page (GET)
 	 */
 	Route::get('/account/student/{student_id}', array('as' => 'student-page', 'uses' => 'StudentController@getStudent'));

@@ -26,7 +26,8 @@ class ProfileController extends BaseController {
 			$data['students'] = $parent->students;
 		} else if($accType == 'teacher') {
 			$teacher = Teacher::where('user_id', '=', Auth::user()->id)->first();
-			$data['classes'] = RegisteredClass::where('teacher_id', '=', $teacher->id)->get(); // Work around: $teacher->registered_classes wouldn't work?
+			// Work around: '$data['classes'] = $teacher->registered_classes;' wouldn't work?
+			$data['classes'] = RegisteredClass::where('teacher_id', '=', $teacher->id)->get();
 		} else {
 			$data['students'] = Student::all();
 			$data['current_period'] = $class_periods::GetCurrentPeriod();

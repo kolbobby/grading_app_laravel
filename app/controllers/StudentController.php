@@ -15,7 +15,8 @@ class StudentController extends BaseController {
 				$this->layout->title = Student::find($student_id)->name;
 				$this->layout->content = View::make('account.view')
 					->with('accType', $this->checkAccType(Auth::user()))
-					->with('page', View::make('student.view'));
+					->with('page', View::make('student.view')
+						->with('accType', $this->checkAccType(Auth::user())));
 			} else {
 				return Redirect::route('account-page');
 			}
