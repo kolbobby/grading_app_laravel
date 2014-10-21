@@ -130,9 +130,24 @@ Route::group(array('before' => 'auth'), function() {
 	 */
 	Route::group(array('before' => 'teacher'), function() {
 		/**
+		 * CSRF protection group
+		 */
+		Route::group(array('before' => 'csrf'), function() {
+			/**
+			 * Add assignment (POST)
+			 */
+			Route::post('/account/class/{class_id}/add_assignment', array('as' => 'class-add-assignment-post', 'uses' => 'ClassController@postAddAssignment'));
+		});
+
+		/**
 		 * Student class grade page (GET)
 		 */
 		Route::get('/account/student/{student_id}/grades/{class_id}', array('as' => 'student-class-grade-page', 'uses' => 'ClassController@getStudentClassGradePage'));
+	
+		/**
+		 * Add assignment (GET)
+		 */
+		Route::get('/account/class/{class_id}/add_assignment', array('as' => 'class-add-assignment', 'uses' => 'ClassController@getAddAssignment'));
 	});
 
 	/**

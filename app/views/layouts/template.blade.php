@@ -103,5 +103,15 @@
 				});
 			}) (jQuery);
 		</script>
+
+		<!-- Teacher Javascript -->
+		<script type="text/javascript">
+			(function($) {
+				/**
+				 * Class view tabs
+				 */
+				$('#class_view_tabs').tabs();
+			}) (jQuery);
+		</script>
 	</body>
 </html>
